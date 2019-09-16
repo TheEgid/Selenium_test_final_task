@@ -2,9 +2,8 @@ import pytest
 
 
 def pytest_addoption(parser):
-    parser.addoption('--language', action='store', default='ru',
+    parser.addoption('--language', action='store', default='en',
                      help="Choose language")
-
 
 @pytest.fixture(scope="function")
 def language(request):
