@@ -1,30 +1,25 @@
 import time
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.by import By
 import pytest
-
-# from pages.login_page import LoginPage
-# from pages.main_page import MainPage
 from pages.product_page import ProductPage
 
 
-PRODUCT_BASE_LINK = f'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
-
-
-# @pytest.yield_fixture
-# def link():
-#yield 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+PRODUCT_BASE_LINK = f'http://selenium1py.pythonanywhere.com/catalogue'
 
 
 urls = [
-    f"{PRODUCT_BASE_LINK}/?promo=offer0", f"{PRODUCT_BASE_LINK}/?promo=offer1",
-    f"{PRODUCT_BASE_LINK}/?promo=offer2", f"{PRODUCT_BASE_LINK}/?promo=offer3",
-    f"{PRODUCT_BASE_LINK}/?promo=offer4", f"{PRODUCT_BASE_LINK}/?promo=offer5",
-    f"{PRODUCT_BASE_LINK}/?promo=offer6",
-    pytest.param(f"{PRODUCT_BASE_LINK}/?promo=offer7",
+    f"{PRODUCT_BASE_LINK}/the-shellcoders-handbook_209/?promo=newYear",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=newYear2019",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer0",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer1",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer2",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer3",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer4",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer5",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer6",
+    pytest.param(f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer7",
                  marks=pytest.mark.xfail),
-    f"{PRODUCT_BASE_LINK}/?promo=offer8", f"{PRODUCT_BASE_LINK}/?promo=offer9"
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer8",
+    f"{PRODUCT_BASE_LINK}/coders-at-work_207/?promo=offer9",
 ]
 
 
@@ -33,17 +28,36 @@ def test_guest_can_add_product_to_basket(browser, link):
     page = ProductPage(browser, link)
     page.open()
     page.add_product_to_basket()
-
-    browser.implicitly_wait(3)
     page.solve_quiz_and_get_code()
-    # time.sleep(30)
-    browser.implicitly_wait(3)
-
+    browser.implicitly_wait(1)
     page.should_be_add_product_to_basket()
     page.should_prices_equal()
     page.should_products_equal()
-    browser.implicitly_wait(3)
+    browser.implicitly_wait(1)
 
-    # time.sleep(15)
 
+@pytest.mark.xfail
+@pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, link):
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_basket()
+    browser.implicitly_wait(1)
+    page.guest_cant_see_success_message()
+
+@pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
+def test_guest_cant_see_success_message(browser, link):
+    page = ProductPage(browser, link)
+    page.open()
+    browser.implicitly_wait(1)
+    page.guest_cant_see_success_message()
+
+@pytest.mark.xfail
+@pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
+def test_message_disappeared_after_adding_product_to_basket(browser, link):
+    page = ProductPage(browser, link)
+    page.open()
+    page.add_product_to_basket()
+    browser.implicitly_wait(1)
+    page.message_disappeared()
 
