@@ -1,7 +1,7 @@
 from urllib.parse import urlparse
-import urllib
 from .base_page import BasePage
 from .locators import BasePageLocators
+from .locators import ProductPageLocators
 
 
 class BasketPage(BasePage):
@@ -10,9 +10,10 @@ class BasketPage(BasePage):
         languages = ['/es/basket/', '/fr/basket/', '/ru/basket/',
                      '/en-gb/basket/', '/it/basket/']
         checks = ['vacío', 'vide', 'пуста', 'is empty', 'vuoto']
-        basket_msg= self.browser.find_element(
+        basket_msg = self.browser.find_element(
             *BasePageLocators.BASKET_CONTAINS).text
         language = urlparse(_href).path
-        # breakpoint()
         assert checks[languages.index(language)] in basket_msg, \
             "No message about empty basket!"
+        assert self.is_not_element_present(*ProductPageLocators.BASKET_PRODUCT), \
+            "Should not be product in basket!"
