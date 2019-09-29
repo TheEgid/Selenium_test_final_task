@@ -5,10 +5,10 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from .locators import MainPageLocators
+from .locators import BasePageLocators
+
 
 class BasePage():
-
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
@@ -58,8 +58,13 @@ class BasePage():
             print("No second alert presented")
 
     def go_to_basket(self):
-        button = self.browser.find_element(*MainPageLocators. BTN_OPEN_BASKET)
+        button = self.browser.find_element(*BasePageLocators. BTN_OPEN_BASKET)
         button.click()
 
-    # def get_num(self, x):
-    #     return int(''.join(el for el in x if el.isdigit()))
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
+    def should_be_login_link(self):
+        assert self.is_element_present(
+            *BasePageLocators.LOGIN_LINK), "Login link is not presented"
