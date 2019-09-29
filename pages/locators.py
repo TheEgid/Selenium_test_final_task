@@ -5,6 +5,7 @@ class MainPageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     BTN_OPEN_BASKET = (By.CSS_SELECTOR, "div.basket-mini.pull-right.hidden-xs > span > a")
     BASKET_CONTAINS = (By.XPATH, '//*[@id="content_inner"]/p')
+    BASKET = (By.CSS_SELECTOR, "#content_inner > p > a")
 
 
 class LoginPageLocators():

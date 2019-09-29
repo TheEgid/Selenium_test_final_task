@@ -1,10 +1,9 @@
-import time
 import pytest
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
 
-PRODUCT_BASE_LINK = f'http://selenium1py.pythonanywhere.com/catalogue'
 
+PRODUCT_BASE_LINK = f'http://selenium1py.pythonanywhere.com/catalogue'
 
 urls = [
     f"{PRODUCT_BASE_LINK}/the-shellcoders-handbook_209/?promo=newYear",
@@ -45,12 +44,14 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser, 
     browser.implicitly_wait(1)
     page.guest_cant_see_success_message()
 
+
 @pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
 def test_guest_cant_see_success_message(browser, link):
     page = ProductPage(browser, link)
     page.open()
     browser.implicitly_wait(1)
     page.guest_cant_see_success_message()
+
 
 @pytest.mark.xfail
 @pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
@@ -61,6 +62,7 @@ def test_message_disappeared_after_adding_product_to_basket(browser, link):
     browser.implicitly_wait(1)
     page.message_disappeared()
 
+
 @pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser, link):
     page = BasketPage(browser, link)
@@ -68,7 +70,6 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser, link
     page.go_to_basket()
     browser.implicitly_wait(1)
     page.guest_cant_see_product_in_basket_opened()
-
 
 
 
