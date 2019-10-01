@@ -14,6 +14,14 @@ class BasePage():
         self.url = url
         self.browser.implicitly_wait(timeout)
 
+    def go_to_basket(self):
+        button = self.browser.find_element(*BasePageLocators.BTN_OPEN_BASKET)
+        button.click()
+
+    def go_to_login_page(self):
+        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
+        link.click()
+
     def open(self):
         self.browser.get(self.url)
 
@@ -56,14 +64,6 @@ class BasePage():
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
-
-    def go_to_basket(self):
-        button = self.browser.find_element(*BasePageLocators. BTN_OPEN_BASKET)
-        button.click()
-
-    def go_to_login_page(self):
-        link = self.browser.find_element(*BasePageLocators.LOGIN_LINK)
-        link.click()
 
     def should_be_authorized_user(self):
         assert self.is_element_present(

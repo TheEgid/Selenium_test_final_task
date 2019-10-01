@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class BasePageLocators():
-    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK = (By.ID, "login_link")
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     BTN_OPEN_BASKET = (By.CSS_SELECTOR, "div.basket-mini.pull-right.hidden-xs > span > a")
     BASKET_CONTAINS = (By.XPATH, '//*[@id="content_inner"]/p')
@@ -10,7 +10,6 @@ class BasePageLocators():
 
 
 class MainPageLocators():
-    LOGIN_LINK = (By.ID, "login_link")
     EMAIL = (By.ID, "id_registration-email")
     PASSWORD1 = (By.ID, "id_registration-password1")
     PASSWORD2 = (By.ID, "id_registration-password2")
