@@ -13,7 +13,7 @@ def link():
     yield 'http://selenium1py.pythonanywhere.com/'
 
 @pytest.mark.login_guest
-class TestLoginFromMainPage(self):
+class TestLoginFromMainPage:
 
     def test_guest_can_go_to_login_page(self, browser, link):
         page = MainPage(browser, link)

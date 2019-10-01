@@ -1,4 +1,5 @@
 import pytest
+import random
 from pages.product_page import ProductPage
 from pages.basket_page import BasketPage
 from pages.login_page import LoginPage
@@ -93,14 +94,32 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser, link
 
 
 @pytest.mark.parametrize('link', [f'{PRODUCT_BASE_LINK}/coders-at-work_207'])  
-class TestUserAddToBasketFromP(self):
+class TestUserAddToBasketFromProductPage:
 
-    def user_guest_cant_see_product_in_basket_opened_from_product_page(browser, link):
-        pass
-    
-    def user_guest_cant_see_success_message(browser, link):
-        pass
-    
-    
-    
-    
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser, link):
+        self.browser = browser
+        self.link = link
+        page = LoginPage(self.browser, self.link)
+        page.open()
+        password = f"{random.randint(10000, 20000)}password"
+        email = f"{random.randint(10000, 20000)}bar@fakemail.org"
+        page.register_new_user(email, password)
+        self.browser.implicitly_wait(1)
+        page.should_be_authorized_user()
+
+    def test_user_cant_see_product_in_basket_opened_from_product_page(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        page.go_to_basket()
+        self.browser.implicitly_wait(1)
+        next_page = BasketPage(self.browser, self.browser.current_url)
+        next_page.guest_cant_see_product_in_basket_opened(
+            _href=self.browser.current_url)
+
+    def test_user_cant_see_success_message(self):
+        page = ProductPage(self.browser, self.link)
+        page.open()
+        self.browser.implicitly_wait(1)
+        page.guest_cant_see_success_message()
+

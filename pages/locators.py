@@ -6,10 +6,15 @@ class BasePageLocators():
     LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     BTN_OPEN_BASKET = (By.CSS_SELECTOR, "div.basket-mini.pull-right.hidden-xs > span > a")
     BASKET_CONTAINS = (By.XPATH, '//*[@id="content_inner"]/p')
+    USER_ICON = (By.CSS_SELECTOR, ".icon-user")
 
 
 class MainPageLocators():
-    pass
+    LOGIN_LINK = (By.ID, "login_link")
+    EMAIL = (By.ID, "id_registration-email")
+    PASSWORD1 = (By.ID, "id_registration-password1")
+    PASSWORD2 = (By.ID, "id_registration-password2")
+    BTN_REGISTER = (By.CSS_SELECTOR, "#register_form > button")
 
 
 class LoginPageLocators():
